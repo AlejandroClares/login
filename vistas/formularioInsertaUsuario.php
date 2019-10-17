@@ -8,7 +8,7 @@
 	Nick<br>
 	<input type="text" name="nick"><br>
 	Contraseña<br>
-	<input type="text" name="passwd"><br>
+	<input type="password" name="passwd"><br>
 	<?php
 	// Si el usuario es de tipo 0 podra asignar el valor de tipo a la base de datos.
 	if($data['tipoUsuario'] != null)

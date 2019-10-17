@@ -1,0 +1,23 @@
+#menu {
+/*	provisional */
+	border: 1px solid black;
+
+/*	--------------------------- */
+	background-color: #09A;
+}
+
+#title {
+	text-align: center;
+}
+
+#botonesMenu {
+/*	provisional */
+	border: 1px solid black;
+
+/*	--------------------------- */
+	padding-left: 0.5em;
+}
+
+#contenido {
+	background-color: green;
+}

@@ -4,8 +4,8 @@ class Abstraccion {
 	
 	private $db;
 	
-	public function __construct(){
-		$this->db = new mysqli("localhost", "root", "", "practicaphp");
+	public function __construct($dbHost, $dbUser, $dbPass, $dbName){
+		$this->db = new mysqli($dbHost, $dbUser, $dbPass, $dbName);
 	}
 	
 	public function cierraConexion(){
@@ -13,11 +13,17 @@ class Abstraccion {
 			$this->db->close();
 	}
 	
-	public function consulta($consulta){
+	public function sqlConsulta($consulta){
 		$resultado = $this->db->query($consulta);
-		$data = array();
-		if($resultado)
-			$data = $resultado->fetch_all();
+        $data = array();
+        while ($row = $resultado->fetch_object()) {
+            $data[] = $row;
+        }
 		return $data;
 	}
+
+    public function sqlOtros($consulta) {
+        $this->db->query($consulta);
+        return $this->db->affected_rows;
+    }
 }

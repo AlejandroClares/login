@@ -16,14 +16,13 @@
 			</tr>
 		<?php
 		foreach ($data["listaUsuarios"] as $registro) {
-			echo '<tr><td>'.$registro["idusuario"].'</td>';
-			echo '<td>'.$registro["nombre"].'</td>';
-			echo '<td>'.$registro["apellidos"].'</td>'; 
-			echo '<td>'.$registro["email"].'</td>';
-			echo '<td>'.$registro["nick"].'</td>';
-			echo '<td>'.$registro["passwd"].'</td>';
-			echo '<td>'.$registro["tipo"].'</td>';
-			echo '<td><a href="index.php?idusuario='.$registro["idusuario"].'&do=modificaUsuario">Modificar</a></td>';
-			echo '<td><a href="index.php?idusuario='.$registro["idusuario"].'&do=eliminaUsuario">Eliminar</a></td></tr>';
+			echo '<tr><td>'.$registro->idusuario.'</td>';
+			echo '<td>'.$registro->nombre.'</td>';
+			echo '<td>'.$registro->apellidos.'</td>'; 
+			echo '<td>'.$registro->email.'</td>';
+			echo '<td>'.$registro->nick.'</td>';
+			echo '<td>'.$registro->tipo.'</td>';
+			echo '<td><a href="index.php?idusuario='.$registro->idusuario.'&do=modificaUsuario">Modificar</a></td>';
+			echo '<td><a href="index.php?idusuario='.$registro->idusuario.'&do=eliminaUsuario">Eliminar</a></td></tr>';
 		}
 		echo "</table>";

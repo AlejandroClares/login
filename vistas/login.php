@@ -2,7 +2,7 @@
 	Usuario<br>
 	<input type="text" name="usuario"><br>
 	Contraseña<br>
-	<input type="text" name="password"><br>
+	<input type="password" name="password"><br>
 	<input type="hidden" name="do" value="validarFormularioLogin">
 	<br>
 	<input type="submit" value="Enviar">

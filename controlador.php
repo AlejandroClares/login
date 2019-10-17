@@ -18,10 +18,10 @@ class Controlador {
 		if (isset($_REQUEST["do"])){
 			$do = $_REQUEST["do"];
 			if(Seguridad::getId() == null && $do != "validarFormularioLogin" && $do != "insertaUsuario" && $do != "validarInsertaUsuario"){
-				$do = "mostrarFormularioLogin";
+				$do = "home";
 			}
 		} else
-			$do = "mostrarFormularioLogin";
+			$do = "home";
 		
 		if ($do == "0"){
 			$do = "cero";
@@ -32,26 +32,25 @@ class Controlador {
 	}
 	
 	private function mostrarFormularioLogin(){
-		vista::mostrar("login");
+		Vista::mostrar("login");
 	}
 	
 	private function validarFormularioLogin(){
 		$username = $_REQUEST["usuario"];
 		$password = $_REQUEST["password"];
 		$validar = $this->usuarios->getValidaUsuario($username, $password);
-		
 		if($validar){
 			if (Seguridad::getTipo() == "0")
-				vista::redireccion("cero");
-//				header('Location: index.php?do=cero');
+				Vista::redireccion("cero");
 			else
-				vista::redireccion("uno");
-//				header('Location: index.php?do=uno');
+				Vista::redireccion("uno");
 		} else {
 			header('Location: index.php');
 		}
 	}
-			
+
+//---------- ADMINISTRACION DE USUARIOS ----------
+
 	private function cero() {
 		$data["listaUsuarios"] = $this->usuarios->getAll();
 		Vista::mostrar("user0", $data);
@@ -67,8 +66,7 @@ class Controlador {
 		if(Seguridad::getTipo() == 1)
 			header('Location: index.php');
 		else
-			vista::redireccion("cero");
-//			header('Location: index.php?do=cero');
+			Vista::redireccion("cero");
 	}
 	
 	private function insertaUsuario(){
@@ -87,8 +85,7 @@ class Controlador {
 		if (!$result) {
 			echo "Fallo al ejecutar la consulta: (" . $db->errno . ") " . $db->error;
 		} elseif (Seguridad::getTipo() == "0")
-			vista::redireccion("cero");
-//			header('Location: index.php?do=cero');
+			Vista::redireccion("cero");
 			else 
 				header('Location: index.php');
 	}
@@ -102,10 +99,9 @@ class Controlador {
 	private function validaModificaUsuario(){
 		$esInsertado = $this->usuarios->updateUser($_REQUEST["idusuario"]);
 		if($esInsertado)
-			vista::redireccion(Seguridad::getTipo());
-//			header('Location: index.php?idusuario='.Seguridad::getId().'&do='.Seguridad::getTipo());
+			Vista::redireccion(Seguridad::getTipo());
 		else
-			echo "No se puedo insertar!";
+			echo "No se pudo insertar!";
 
 	}
 	
@@ -115,4 +111,14 @@ class Controlador {
 	}
 	
 
-}
+//---------- PAGINA ----------
+
+	private function home(){
+		Vista::mostrar("home");
+	}
+
+} // clase
+
+
+
+
