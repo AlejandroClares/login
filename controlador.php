@@ -69,12 +69,14 @@ class Controlador {
 	*/
 	private function usuarios(){
 
+		$data["tipoUsuario"] = Seguridad::getTipo();
+
 		if(Seguridad::getTipo() == 0){
-			$data["listaUsuarios"] = $this->usuarios->getAll();
-			Vista::mostrar("user0", $data);
+			$data["datosUsuarios"] = $this->usuarios->getAll();
+			Vista::mostrar("usuario", $data);
 		} else if(Seguridad::getTipo() == 1){
-			$data["datosUsuario"] = $this->usuarios->get(Seguridad::getId());
-			Vista::mostrar("user1", $data);	
+			$data["datosUsuarios"] = $this->usuarios->get(Seguridad::getId());
+			Vista::mostrar("usuario", $data);
 		} 
 	}
 	
