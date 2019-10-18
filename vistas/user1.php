@@ -4,17 +4,14 @@
 		?>
 		<table border="1px solid black">
 			<tr>
-				<th>idusuario</th>
-				<th>nombre</th>
-				<th>apellidos</th>
-				<th>email</th>
-				<th>nick</th>
-				<th>passwd</th>
+				<th>Nombre</th>
+				<th>Apellidos</th>
+				<th>Email</th>
+				<th>Nick</th>
 				<th colspan="2">Acciones</th>
 			</tr>
 		<?php
 		foreach($data["datosUsuario"] as $registro) {
-			echo '<tr><td>'.$registro->idusuario.'</td>';
 			echo '<td>'.$registro->nombre.'</td>';
 			echo '<td>'.$registro->apellidos.'</td>'; 
 			echo '<td>'.$registro->email.'</td>';

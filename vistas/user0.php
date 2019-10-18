@@ -5,13 +5,12 @@
 	?>
 		<table border="1px solid black">
 			<tr>
-				<th>idusuario</th>
-				<th>nombre</th>
-				<th>apellidos</th>
-				<th>email</th>
-				<th>nick</th>
-				<th>passwd</th>
-				<th>tipo</th>
+				<th>ID</th>
+				<th>Nombre</th>
+				<th>Apellidos</th>
+				<th>Email</th>
+				<th>Nick</th>
+				<th>Permisos</th>
 				<th colspan="2">Acciones</th>
 			</tr>
 		<?php

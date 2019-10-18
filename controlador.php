@@ -18,15 +18,10 @@ class Controlador {
 		if (isset($_REQUEST["do"])){
 			$do = $_REQUEST["do"];
 			if(Seguridad::getId() == null && $do != "validarFormularioLogin" && $do != "insertaUsuario" && $do != "validarInsertaUsuario"){
-				$do = "home";
+				$do = "mostrarFormularioLogin";
 			}
 		} else
-			$do = "home";
-		
-		if ($do == "0"){
-			$do = "cero";
-		} elseif ($do == "1")
-			$do = "uno";
+			$do = "mostrarFormularioLogin";
 		
 		$this->$do(); //Ejecuta el metodo con el nombre que contiene la variable en ese momento.
 	}
@@ -41,24 +36,31 @@ class Controlador {
 		$validar = $this->usuarios->getValidaUsuario($username, $password);
 		if($validar){
 			if (Seguridad::getTipo() == "0")
-				Vista::redireccion("cero");
+//				Vista::redireccion("usuarios");
+				Vista::redireccion("seleccionTabla");
 			else
-				Vista::redireccion("uno");
+//				Vista::redireccion("usuarios");
+				Vista::redireccion("seleccionTabla");
 		} else {
 			header('Location: index.php');
 		}
 	}
 
+	private function seleccionTabla(){
+		Vista::mostrar("seleccionaTablas");
+	}
+
 //---------- ADMINISTRACION DE USUARIOS ----------
 
-	private function cero() {
-		$data["listaUsuarios"] = $this->usuarios->getAll();
-		Vista::mostrar("user0", $data);
-	}
-	
-	private function uno() {
-		$data["datosUsuario"] = $this->usuarios->get(Seguridad::getId());
-		Vista::mostrar("user1", $data);			
+	private function usuarios(){
+
+		if(Seguridad::getTipo() == 0){
+			$data["listaUsuarios"] = $this->usuarios->getAll();
+			Vista::mostrar("user0", $data);
+		} else if(Seguridad::getTipo() == 1){
+			$data["datosUsuario"] = $this->usuarios->get(Seguridad::getId());
+			Vista::mostrar("user1", $data);	
+		} 
 	}
 	
 	private function eliminaUsuario() {
@@ -66,7 +68,7 @@ class Controlador {
 		if(Seguridad::getTipo() == 1)
 			header('Location: index.php');
 		else
-			Vista::redireccion("cero");
+			Vista::redireccion("usuarios");
 	}
 	
 	private function insertaUsuario(){
@@ -85,7 +87,7 @@ class Controlador {
 		if (!$result) {
 			echo "Fallo al ejecutar la consulta: (" . $db->errno . ") " . $db->error;
 		} elseif (Seguridad::getTipo() == "0")
-			Vista::redireccion("cero");
+			Vista::redireccion("usuarios");
 			else 
 				header('Location: index.php');
 	}
