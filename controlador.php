@@ -12,6 +12,9 @@ class Controlador {
         $this->usuarios = new Usuarios();
     }
 	
+	/**
+	* Selecciona el metodo que va a mostrar. Este metodo siempre es ejecutado
+	*/
 	public function main(){
 		
 		session_start();
@@ -23,13 +26,19 @@ class Controlador {
 		} else
 			$do = "mostrarFormularioLogin";
 		
-		$this->$do(); //Ejecuta el metodo con el nombre que contiene la variable en ese momento.
+		$this->$do(); //Ejecuta el metodo con el nombre que contiene la variable en ese momento
 	}
 	
+	/**
+	* Muestra el formulario de login
+	*/
 	private function mostrarFormularioLogin(){
 		Vista::mostrar("login");
 	}
 	
+	/**
+	* Procesa el formulario login
+	*/
 	private function validarFormularioLogin(){
 		$username = $_REQUEST["usuario"];
 		$password = $_REQUEST["password"];
@@ -46,12 +55,18 @@ class Controlador {
 		}
 	}
 
+	/**
+	* Muestra la vista de seleccion de tablas
+	*/
 	private function seleccionTabla(){
 		Vista::mostrar("seleccionaTablas");
 	}
 
 //---------- ADMINISTRACION DE USUARIOS ----------
 
+	/**
+	* Selecciona y muestra la vista del usuario según los permisos que tenga
+	*/
 	private function usuarios(){
 
 		if(Seguridad::getTipo() == 0){
@@ -63,6 +78,9 @@ class Controlador {
 		} 
 	}
 	
+	/**
+	* Elimina el usuario
+	*/
 	private function eliminaUsuario() {
 		$result = $this->usuarios->deleteUser($_REQUEST["idusuario"]);
 		if(Seguridad::getTipo() == 1)
@@ -71,11 +89,17 @@ class Controlador {
 			Vista::redireccion("usuarios");
 	}
 	
+	/**
+	* Muestra la vista para insertar un usuario
+	*/
 	private function insertaUsuario(){
 		$data['tipoUsuario'] = Seguridad::getTipo();
 		Vista::mostrar("formularioInsertaUsuario", $data);
 	}
 	
+	/**
+	* Procesa el formilario para insertar un usuario
+	*/
 	private function validarInsertaUsuario(){
 		//Comprueba que la variable tipo exista, sino pondra 1 por defecto
 		if(isset($_REQUEST["tipo"]))
@@ -92,12 +116,18 @@ class Controlador {
 				header('Location: index.php');
 	}
 	
+	/**
+	* Muestra la vista para modificar un usuario.
+	*/
 	private function modificaUsuario(){
 		$data['datosUsuario'] = $this->usuarios->get($_REQUEST["idusuario"]);
 		$data['tipoUsuario'] = Seguridad::getTipo(); 
 		Vista::mostrar("formularioModificar", $data);
 	}
 	
+	/**
+	* Procesa el formulario de modificar un usuario.
+	*/
 	private function validaModificaUsuario(){
 		$esInsertado = $this->usuarios->updateUser($_REQUEST["idusuario"]);
 		if($esInsertado)
@@ -107,6 +137,9 @@ class Controlador {
 
 	}
 	
+	/**
+	* Cierra las variables de sesion
+	*/
 	private function salirLogin(){
 		Seguridad::cerrarSesion();
 		header('Location: index.php');
@@ -115,6 +148,9 @@ class Controlador {
 
 //---------- PAGINA ----------
 
+	/**
+	* Muestra la página principal (En construccion)
+	*/
 	private function home(){
 		Vista::mostrar("home");
 	}
