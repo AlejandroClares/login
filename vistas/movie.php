@@ -27,8 +27,8 @@
         echo '<td>'.$registro->filepath.'</td>';
         echo '<td>'.$registro->filename.'</td>';
         echo '<td>'.$registro->external_url.'</td>';
-        echo '<td><a href="index.php?id='.$registro->id.'&do=null&controlador=movieControlador">Modificar (Sin funcion)</a></td>';
-		echo '<td><a href="index.php?id='.$registro->id.'&do=null&controlador=movieControlador">Eliminar (Sin funcion)</a></td></tr>';
+        echo '<td><a href="index.php?id='.$registro->id.'">Modificar (Sin funcion)</a></td>';
+		echo '<td><a href="index.php?id='.$registro->id.'">Eliminar (Sin funcion)</a></td>';
         echo '</tr>';
     }
     ?>
