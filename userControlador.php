@@ -18,7 +18,6 @@ class userControlador {
 	*/
 	public function main(){
 		
-		session_start();
 		if (isset($_REQUEST["do"])){
 			$do = $_REQUEST["do"];
 			if(Seguridad::getId() == null && $do != "validarFormularioLogin" && $do != "insertaUsuario" && $do != "validarInsertaUsuario"){

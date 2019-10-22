@@ -5,7 +5,7 @@ echo '
 		<p>¿Que quieres modificar?</p>
 		
 		<a href="index.php?do=usuarios&controlador=userControlador">Usuarios</a>
-		<a href="index.php?do=main&controlador=movieControlador">Peliculas</a>
+		<a href="index.php?do=movie&controlador=movieControlador">Peliculas</a>
 		
 	</form>
 

@@ -1,22 +1,21 @@
 <?php
 include("vista.php");
+include("modelos/seguridad.php");
+include("modelos/movies.php");
 
 	class movieControlador {
 
 		private $dbMovies;
 
 		public function __construct(){
-			// Aqui se debe iniciar dbMovies
+			$this->dbMovies = new Movies();
 		}
 
 		public function main(){
 
-			// Inicia las variables de sesion.
-			session_start();
 			// Comprueba si existe la variable
-			if(isset($_REQUESTA["do"])) {
-				$do = $_REQUESTA["do"];
-				
+			if(isset($_REQUEST["do"])) {
+				$do = $_REQUEST["do"];
 			} else { // Si no hay variable de sesion, muestra el login
 				$do = "movie";	
 			}
@@ -31,14 +30,8 @@ include("vista.php");
 		}
 
 		private function movie(){
-			echo "Hola mundo";
-			echo "Haz clic <a href='index.php?direccion=users'>aquí</a> para saltar al controlador de usuarios";
+			$data["datosMovies"] = $this->dbMovies->getAll();
+			Vista::mostrar("movie", $data);
 		}
-
-		private function prueba(){
-			echo "Test";
-		}
-
-
 
 	}
