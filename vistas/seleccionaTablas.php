@@ -3,7 +3,10 @@
 echo '
 	<form action="index.php" method="GET">
 		<p>¿Que quieres modificar?</p>
-		<input type="submit" name="do" value="Usuarios">
+		
+		<a href="index.php?do=usuarios&controlador=userControlador">Usuarios</a>
+		<a href="index.php?do=main&controlador=movieControlador">Peliculas</a>
+		
 	</form>
 
 ';

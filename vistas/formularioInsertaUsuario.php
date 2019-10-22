@@ -17,6 +17,7 @@
 			<input type="text" name="tipo"><br>';
 	}
 	?>
+	<input type="hidden" name="controlador" value="userControlador">
 	<input type="hidden" name="do" value="validarInsertaUsuario"><br>
 	<input type="submit" name="Enviar">
 </form>

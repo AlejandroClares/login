@@ -6,5 +6,7 @@
 	<input type="hidden" name="do" value="validarFormularioLogin">
 	<br>
 	<input type="submit" value="Enviar">
-	<a href="index.php?do=insertaUsuario">Crear usuario</a>
+	<a href="index.php?do=insertaUsuario&controlador=userControlador">Crear usuario</a>
 </form>
+
+<p><?php echo $data["informacion"]?></p>

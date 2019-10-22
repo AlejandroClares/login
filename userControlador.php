@@ -1,9 +1,10 @@
 <?php
+include("modelos/seguridad.php");
 include("vista.php");
 include("modelos/usuarios.php");
-include("modelos/seguridad.php");
 
-class Controlador {
+
+class userControlador {
 	
 	
 	protected $usuarios;
@@ -25,7 +26,6 @@ class Controlador {
 			}
 		} else
 			$do = "mostrarFormularioLogin";
-		
 		$this->$do(); //Ejecuta el metodo con el nombre que contiene la variable en ese momento
 	}
 	
@@ -46,10 +46,10 @@ class Controlador {
 		if($validar){
 			if (Seguridad::getTipo() == "0")
 //				Vista::redireccion("usuarios");
-				Vista::redireccion("seleccionTabla");
+				Vista::redireccion("seleccionTabla", "userControlador");
 			else
 //				Vista::redireccion("usuarios");
-				Vista::redireccion("seleccionTabla");
+				Vista::redireccion("seleccionTabla", "userControlador");
 		} else {
 			header('Location: index.php');
 		}
@@ -88,7 +88,7 @@ class Controlador {
 		if(Seguridad::getTipo() == 1)
 			header('Location: index.php');
 		else
-			Vista::redireccion("usuarios");
+			Vista::redireccion("usuarios", "userControlador");
 	}
 	
 	/**
@@ -113,7 +113,7 @@ class Controlador {
 		if (!$result) {
 			echo "Fallo al ejecutar la consulta: (" . $db->errno . ") " . $db->error;
 		} elseif (Seguridad::getTipo() == "0")
-			Vista::redireccion("usuarios");
+			Vista::redireccion("usuarios", "userControlador");
 			else 
 				header('Location: index.php');
 	}
@@ -133,9 +133,9 @@ class Controlador {
 	private function validaModificaUsuario(){
 		$esInsertado = $this->usuarios->updateUser($_REQUEST["idusuario"]);
 		if($esInsertado)
-			Vista::redireccion(Seguridad::getTipo());
+			Vista::redireccion("usuarios", "userControlador");
 		else
-			echo "No se pudo insertar!";
+			echo "Hubo un error.";
 
 	}
 	

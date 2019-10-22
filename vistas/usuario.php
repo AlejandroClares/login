@@ -5,8 +5,8 @@
 		$admin = true;
 	}
 
-	if($admin) echo '<a href="index.php?do=insertaUsuario">Añadir</a> <br/>';
-	echo '<a href="index.php?do=salirLogin">Salir</a><br>
+	if($admin) echo '<a href="index.php?do=insertaUsuario&controlador=userControlador">Añadir</a> <br/>';
+	echo '<a href="index.php?do=salirLogin&controlador=userControlador">Salir</a><br>
 			<br>';
 	?>
 		<table border="1px solid black">
@@ -27,7 +27,7 @@
 			echo '<td>'.$registro->email.'</td>';
 			echo '<td>'.$registro->nick.'</td>';
 			if($admin) echo '<td>'.$registro->tipo.'</td>';
-			echo '<td><a href="index.php?idusuario='.$registro->idusuario.'&do=modificaUsuario">Modificar</a></td>';
-			echo '<td><a href="index.php?idusuario='.$registro->idusuario.'&do=eliminaUsuario">Eliminar</a></td></tr>';
+			echo '<td><a href="index.php?idusuario='.$registro->idusuario.'&do=modificaUsuario&controlador=userControlador">Modificar</a></td>';
+			echo '<td><a href="index.php?idusuario='.$registro->idusuario.'&do=eliminaUsuario&controlador=userControlador">Eliminar</a></td></tr>';
 		}
 		echo "</table>";

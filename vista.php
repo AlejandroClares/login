@@ -7,8 +7,8 @@
             include("vistas/footer.php");
 		}
 
-        public static function redireccion($actionName, $data=null) {
-            $url = "<script>location.href='index.php?do=$actionName";
+        public static function redireccion($actionName, $controller,$data=null) {
+            $url = "<script>location.href='index.php?do=$actionName&controlador=$controller";
             if ($data != null) {
                 foreach ($data as $clave=>$valor) {
                     $url = $url . "&" . $clave . "=" . $valor;
