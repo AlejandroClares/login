@@ -11,9 +11,8 @@ include("config.php");
 		
 		public function getValidaUsuario($usuario, $password) {
 			$result = $this->database->sqlConsulta("SELECT * FROM usuarios WHERE nick = '$usuario' AND passwd = '$password'");
-			$result = $result[0];
-			if (isset($result)) {
-				Seguridad::abrirSesion($result->idusuario, $result->tipo);
+			if (isset($result[0])) {
+				Seguridad::abrirSesion($result[0]->idusuario, $result[0]->tipo);
 				$usuarioValido = true;
 			} else {
 				$usuarioValido = false;

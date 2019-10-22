@@ -51,7 +51,8 @@ class userControlador {
 //				Vista::redireccion("usuarios");
 				Vista::redireccion("seleccionTabla", "userControlador");
 		} else {
-			header('Location: index.php');
+			$data["informacion"] = "Nombre de usuario o contraseña incorrecta.";
+			Vista::mostrar("login", $data);
 		}
 	}
 
