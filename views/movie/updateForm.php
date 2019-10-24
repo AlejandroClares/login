@@ -22,7 +22,7 @@
 
 	echo '
 		<input type="hidden" name="id" value="'.$data["datosPelicula"][0]->id.'">
-		<input type="hidden" name="controlador" value="movieControlador">
+		<input type="hidden" name="controlador" value="movieController">
 		<input type="hidden" name="do" value="processUptadeMovie"><br>
 		<input type="submit" value="Modificar">
 	</form>

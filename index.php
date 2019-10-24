@@ -6,8 +6,7 @@ if(isset($_REQUEST["controlador"])) {
 	$c = new $_REQUEST["controlador"]();
 	$c->main();	
 } else {
-	include("userControlador.php");
-	$c = new userControlador();
+	include("userController.php");
+	$c = new userController();
 	$c->main();
 }
-

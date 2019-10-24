@@ -16,7 +16,7 @@
     Url externa<br>
 	<input type="text" name="urlExterna"><br>
 	
-	<input type="hidden" name="controlador" value="movieControlador">
+	<input type="hidden" name="controlador" value="movieController">
 	<input type="hidden" name="do" value="processInsertMovie"><br>
 	<input type="submit" value="Añadir pelicula">
 </form>

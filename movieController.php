@@ -1,9 +1,9 @@
 <?php
-include("vista.php");
-include("modelos/seguridad.php");
-include("modelos/movies.php");
+include("view.php");
+include("models/seguridad.php");
+include("models/movies.php");
 
-	class movieControlador {
+	class movieController {
 
 		private $dbMovies;
 
@@ -25,26 +25,26 @@ include("modelos/movies.php");
 				$this->$do(); // Ejecuta el método.
 			} else {
 				$data["informacion"] = "Debes ser administrador.";
-				Vista::mostrar("login", $data);
+				View::show("user/login", $data);
 			}
 		}
 
 		private function movie(){
 			$data["datosMovies"] = $this->dbMovies->getAll();
-			Vista::mostrar("movie", $data);
+			View::show("movie/movieAdmin", $data);
 		}
 
 		private function insertMovie(){
-			Vista::mostrar("formularioInsertaMovie");
+			View::show("movie/insertForm");
 		}
 
 		private function processInsertMovie(){
 			$result = $this->dbMovies->insertMovie();
 			if($result){
-				Vista::redireccion("movie", "movieControlador");
+				View::redireccion("movie", "movieController");
 			} else {
 				$data["informacion"] = "No se a podido guardar. Asegurese que los datos introducidos son correctos.";
-				Vista::mostrar("formularioInsertaMovie", $data);
+				View::show("movie/insertForm", $data);
 			}
 		}
 
@@ -52,16 +52,16 @@ include("modelos/movies.php");
 			$id = $_REQUEST["id"];
 			$data["datosPelicula"] = $this->dbMovies->get($id);
 			if(isset($data["datosPelicula"][0]->id)){
-				Vista::mostrar("formularioEliminaMovie", $data);
+				View::show("movie/deleteForm", $data);
 			} else {
-				Vista::redireccion("movie", "movieControlador");
+				View::redireccion("movie", "movieController");
 			}
 		}
 
 		private function processDeleteMovie(){
 			$result = $this->dbMovies->deleteMovie($_REQUEST["id"]);
 			if($result){
-				Vista::redireccion("movie", "movieControlador");
+				View::redireccion("movie", "movieController");
 			} else
 				echo "false";
 		}
@@ -74,17 +74,17 @@ include("modelos/movies.php");
 				$data["informacion"] = $_REQUEST["informacion"];
 			}
 			$data["datosPelicula"] = $this->dbMovies->get($id);
-			Vista::mostrar("formularioModificaMovie", $data);
+			View::show("movie/updateForm", $data);
 		}
 
 		private function processUptadeMovie(){
 			$result = $this->dbMovies->updateMovie($_REQUEST["id"]);
 			if($result){
-				Vista::redireccion("movie", "movieControlador");
+				View::redireccion("movie", "movieController");
 			} else {
 				$data["informacion"] = "No se a podido actualizar la información.";
 				$data["id"] = $_REQUEST["id"];
-				Vista::redireccion("updateMovie", "movieControlador", $data);
+				View::redireccion("updateMovie", "movieController", $data);
 			}
 		}
 	}

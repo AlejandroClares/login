@@ -1,10 +1,10 @@
 <?php
-include("modelos/seguridad.php");
-include("vista.php");
-include("modelos/usuarios.php");
+include("models/seguridad.php");
+include("view.php");
+include("models/usuarios.php");
 
 
-class userControlador {
+class userController {
 	
 	
 	protected $usuarios;
@@ -32,7 +32,7 @@ class userControlador {
 	* Muestra el formulario de login
 	*/
 	private function mostrarFormularioLogin(){
-		Vista::mostrar("login");
+		View::show("user/login");
 	}
 	
 	/**
@@ -44,14 +44,14 @@ class userControlador {
 		$validar = $this->usuarios->getValidaUsuario($username, $password);
 		if($validar){
 			if (Seguridad::getTipo() == "0")
-//				Vista::redireccion("usuarios");
-				Vista::redireccion("seleccionTabla", "userControlador");
+//				View::redireccion("usuarios");
+				View::redireccion("seleccionTabla", "userController");
 			else
-//				Vista::redireccion("usuarios");
-				Vista::redireccion("seleccionTabla", "userControlador");
+//				View::redireccion("usuarios");
+				View::redireccion("seleccionTabla", "userController");
 		} else {
 			$data["informacion"] = "Nombre de usuario o contraseña incorrecta.";
-			Vista::mostrar("login", $data);
+			View::show("user/login", $data);
 		}
 	}
 
@@ -59,7 +59,7 @@ class userControlador {
 	* Muestra la vista de seleccion de tablas
 	*/
 	private function seleccionTabla(){
-		Vista::mostrar("seleccionaTablas");
+		View::show("user/seleccionaTablas");
 	}
 
 //---------- ADMINISTRACION DE USUARIOS ----------
@@ -73,10 +73,10 @@ class userControlador {
 
 		if(Seguridad::getTipo() == 0){
 			$data["datosUsuarios"] = $this->usuarios->getAll();
-			Vista::mostrar("usuario", $data);
+			View::show("user/userAdmin", $data);
 		} else if(Seguridad::getTipo() == 1){
 			$data["datosUsuarios"] = $this->usuarios->get(Seguridad::getId());
-			Vista::mostrar("usuario", $data);
+			View::show("user/userAdmin", $data);
 		} 
 	}
 	
@@ -88,7 +88,7 @@ class userControlador {
 		if(Seguridad::getTipo() == 1)
 			header('Location: index.php');
 		else
-			Vista::redireccion("usuarios", "userControlador");
+			View::redireccion("usuarios", "userController");
 	}
 	
 	/**
@@ -96,7 +96,7 @@ class userControlador {
 	*/
 	private function insertaUsuario(){
 		$data['tipoUsuario'] = Seguridad::getTipo();
-		Vista::mostrar("formularioInsertaUsuario", $data);
+		View::show("user/insertForm", $data);
 	}
 	
 	/**
@@ -113,7 +113,7 @@ class userControlador {
 		if (!$result) {
 			echo "Fallo al ejecutar la consulta: (" . $db->errno . ") " . $db->error;
 		} elseif (Seguridad::getTipo() == "0")
-			Vista::redireccion("usuarios", "userControlador");
+			View::redireccion("usuarios", "userController");
 			else 
 				header('Location: index.php');
 	}
@@ -124,7 +124,7 @@ class userControlador {
 	private function modificaUsuario(){
 		$data['datosUsuario'] = $this->usuarios->get($_REQUEST["idusuario"]);
 		$data['tipoUsuario'] = Seguridad::getTipo(); 
-		Vista::mostrar("formularioModificar", $data);
+		View::show("user/updateForm", $data);
 	}
 	
 	/**
@@ -133,7 +133,7 @@ class userControlador {
 	private function validaModificaUsuario(){
 		$esInsertado = $this->usuarios->updateUser($_REQUEST["idusuario"]);
 		if($esInsertado)
-			Vista::redireccion("usuarios", "userControlador");
+			View::redireccion("usuarios", "userController");
 		else
 			echo "Hubo un error.";
 
@@ -154,7 +154,7 @@ class userControlador {
 	* Muestra la página principal (En construccion)
 	*/
 	private function home(){
-		Vista::mostrar("home");
+		View::show("home");
 	}
 
 } // clase

@@ -1,7 +1,7 @@
 <?php
-	class Vista {
+	class View {
 		
-		public static function mostrar($nombreVista, $data=null) {
+		public static function show($nombreVista, $data=null) {
             include("views/header.php");
 			include("views/$nombreVista.php");
             include("views/footer.php");
