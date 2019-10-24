@@ -1,5 +1,5 @@
 
-<a href="">Añadir (Sin funcion)</a> <br/>
+<a href="index.php?do=insertMovie&controlador=movieControlador">Añadir</a> <br/>
 <a href="index.php?do=salirLogin&controlador=userControlador">Salir</a>
 
 <table border="1px solid black">
@@ -27,8 +27,8 @@
         echo '<td>'.$registro->filepath.'</td>';
         echo '<td>'.$registro->filename.'</td>';
         echo '<td>'.$registro->external_url.'</td>';
-        echo '<td><a href="index.php?id='.$registro->id.'">Modificar (Sin funcion)</a></td>';
-		echo '<td><a href="index.php?id='.$registro->id.'">Eliminar (Sin funcion)</a></td>';
+        echo '<td><a href="index.php?do=updateMovie&controlador=movieControlador&id='.$registro->id.'">Modificar (En proceso)</a></td>';
+		echo '<td><a href="index.php?do=deleteMovie&controlador=movieControlador&id='.$registro->id.'">Eliminar</a></td>';
         echo '</tr>';
     }
     ?>
