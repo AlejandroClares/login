@@ -21,3 +21,14 @@
 #contenido {
 	background-color: green;
 }
+
+/* Tablas */
+
+table {
+	border-collapse: collapse;
+	text-align: center;
+}
+
+th, td {
+	padding: 0.2em;
+}
