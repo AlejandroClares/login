@@ -5,9 +5,7 @@
 		$admin = true;
 	}
 
-	if($admin) echo '<a href="index.php?do=insertaUsuario&controlador=userController">Añadir</a> <br/>';
-	echo '<a href="index.php?do=salirLogin&controlador=userController">Salir</a><br>
-			<br>';
+	if($admin) echo '<a href="index.php?do=insertaUsuario&controlador=userController">Añadir usuario</a> <br/><br/>';
 	?>
 		<table border="1px solid black">
 			<tr>

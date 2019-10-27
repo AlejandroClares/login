@@ -100,7 +100,7 @@ class userController {
 	}
 	
 	/**
-	* Procesa el formilario para insertar un usuario
+	* Procesa el formulario para insertar un usuario
 	*/
 	private function validarInsertaUsuario(){
 		//Comprueba que la variable tipo exista, sino pondra 1 por defecto
@@ -109,13 +109,34 @@ class userController {
 		else 
 			$tipo = 1;
 
-		$result = $this->usuarios->insertUser($tipo); //Devuelve 1 si inserta user
-		if (!$result) {
-			echo "Fallo al ejecutar la consulta: (" . $db->errno . ") " . $db->error;
-		} elseif (Seguridad::getTipo() == "0")
-			View::redireccion("usuarios", "userController");
-			else 
-				header('Location: index.php');
+		
+		
+		// Subida del fichero
+		$dir_image = "C:/xampp/htdocs/php/login/assets/image/user/";
+
+		// Obtengo la extension del fichero
+		$filepath = pathinfo($_FILES['foto_usuario']['name']);
+		$extension = "." . $filepath["extension"];
+		$image_upload = $dir_image . $_REQUEST["email"] . $extension;
+		
+		if (move_uploaded_file($_FILES['foto_usuario']['tmp_name'], $image_upload)) {
+			$result = $this->usuarios->insertUser($tipo); //Devuelve 1 si inserta user
+			echo "Resultado: " . $result;
+			if ($result) {
+				 if (Seguridad::getTipo() == "0"){
+					View::redireccion("usuarios", "userController");
+				 } else {
+					header('Location: index.php');
+				 }
+			} else {
+				echo "Hubo un error al insertar el usuario"	;
+				unlink($image_upload);
+				
+			}
+		} else {
+			echo "Fallo al subir el archivo";
+		}
+
 	}
 	
 	/**

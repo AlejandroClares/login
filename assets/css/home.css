@@ -32,3 +32,17 @@ table {
 th, td {
 	padding: 0.2em;
 }
+
+/* Enlaces */
+
+a {
+	text-decoration: none;
+}
+
+a:link, a:visited {
+	color: blue;
+}
+
+a:hover {
+	color: yellowgreen;
+}
