@@ -14,7 +14,7 @@
 	if($data['tipoUsuario'] != null)
 		if($data['tipoUsuario'] == "0"){
 			echo 'Tipo<br>
-			<input type="text" name="tipo"><br>';
+			<input type="number" name="tipo" min="0" max="1"><br>';
 	}
 	?>
 
