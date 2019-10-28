@@ -38,7 +38,7 @@ include("config.php");
 				return false;
 		}
 		
-		public function insertUser($tipo) {				
+		public function insertUser($tipo, $imgName) {				
 			$result = $this->database->sqlOtros('INSERT INTO usuarios VALUES (
 			" 0 ",
 			"' . $_REQUEST["nombre"] . '",
@@ -46,7 +46,8 @@ include("config.php");
 			"' . $_REQUEST["email"] . '",
 			"' . $_REQUEST["nick"] . '",
 			"' . $_REQUEST["passwd"] . '",
-			"' . $tipo . '"
+			"' . $tipo . '",
+			"' . $imgName . '"
 			);');
 
             if ($result == 1) {

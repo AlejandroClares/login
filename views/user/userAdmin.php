@@ -15,6 +15,7 @@
 				<th>Email</th>
 				<th>Nick</th>
 				<?php if($admin) echo '<th>Permisos</th>'; ?>
+				<th>Foto de perfil</th>
 				<th colspan="2">Acciones</th>
 			</tr>
 		<?php
@@ -25,6 +26,7 @@
 			echo '<td>'.$registro->email.'</td>';
 			echo '<td>'.$registro->nick.'</td>';
 			if($admin) echo '<td>'.$registro->tipo.'</td>';
+			echo '<td>'.$registro->nombre_foto.'</td>';
 			echo '<td><a href="index.php?idusuario='.$registro->idusuario.'&do=updateUser&controlador=userController">Modificar</a></td>';
 			echo '<td><a href="index.php?idusuario='.$registro->idusuario.'&do=deleteUser&controlador=userController">Eliminar</a></td></tr>';
 		}

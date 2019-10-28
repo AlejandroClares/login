@@ -107,30 +107,25 @@ class userController {
 		else 
 			$tipo = 1;
 
-		
-		// Obtengo la extension del fichero
-		$filepath = pathinfo($_FILES['foto_usuario']['name']);
-		$extension = "." . $filepath["extension"];
-		$image_upload = Config::$userDirImage . $_REQUEST["email"] . $extension;
-		
-		if (move_uploaded_file($_FILES['foto_usuario']['tmp_name'], $image_upload)) {
-			$result = $this->users->insertUser($tipo); //Devuelve 1 si inserta user
-			echo "Resultado: " . $result;
-			if ($result) {
-				 if (Seguridad::getTipo() == "0"){
-					View::redireccion("user", "userController");
-				 } else {
-					header('Location: index.php');
-				 }
+		if($_FILES["foto_usuario"]["error"] == 0){
+			$randNumber = rand(0, 999999);
+			$imgName = $randNumber . $_FILES['foto_usuario']['name'];
+			$image_upload = Config::$userDirImage . $imgName;
+			if (move_uploaded_file($_FILES['foto_usuario']['tmp_name'], $image_upload)) {
+				$result = $this->users->insertUser($tipo, $imgName); //Devuelve 1 si inserta user
+				if($result){
+					if (Seguridad::getTipo() == "0"){
+						View::redireccion("user", "userController");
+					} else {
+						header('Location: index.php');
+					}
+				} else {
+					echo "Ocurrio un error al insertar el usuario.";
+				}
 			} else {
-				echo "Hubo un error al insertar el usuario"	;
-				unlink($image_upload);
-				
+				echo "Ocurrio un error al guardar el archivo.";
 			}
-		} else {
-			echo "Fallo al subir el archivo";
 		}
-
 	}
 	
 	/**
