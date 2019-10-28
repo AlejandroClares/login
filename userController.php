@@ -44,10 +44,8 @@ class userController {
 		$validar = $this->users->getProcessUser($username, $password);
 		if($validar){
 			if (Seguridad::getTipo() == "0")
-//				View::redireccion("usuarios");
 				View::redireccion("selectTable", "userController");
 			else
-//				View::redireccion("usuarios");
 				View::redireccion("selectTable", "userController");
 		} else {
 			$data["informacion"] = "Nombre de usuario o contraseña incorrecta.";
@@ -88,7 +86,7 @@ class userController {
 		if(Seguridad::getTipo() == 1)
 			header('Location: index.php');
 		else
-			View::redireccion("usuarios", "userController");
+			View::redireccion("user", "userController");
 	}
 	
 	/**
@@ -120,7 +118,7 @@ class userController {
 			echo "Resultado: " . $result;
 			if ($result) {
 				 if (Seguridad::getTipo() == "0"){
-					View::redireccion("usuarios", "userController");
+					View::redireccion("user", "userController");
 				 } else {
 					header('Location: index.php');
 				 }
@@ -150,7 +148,7 @@ class userController {
 	private function processUpdateUser(){
 		$esInsertado = $this->users->updateUser($_REQUEST["idusuario"]);
 		if($esInsertado)
-			View::redireccion("usuarios", "userController");
+			View::redireccion("user", "userController");
 		else
 			echo "Hubo un error.";
 
