@@ -6,4 +6,5 @@
 		public static $dbUser = "root";
 		public static $dbPass = "";
 		public static $dbName = "practicaphp";
+		public static $userDirImage = "C:/xampp/htdocs/php/login/assets/image/user/";
 	}

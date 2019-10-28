@@ -110,14 +110,10 @@ class userController {
 			$tipo = 1;
 
 		
-		
-		// Subida del fichero
-		$dir_image = "C:/xampp/htdocs/php/login/assets/image/user/";
-
 		// Obtengo la extension del fichero
 		$filepath = pathinfo($_FILES['foto_usuario']['name']);
 		$extension = "." . $filepath["extension"];
-		$image_upload = $dir_image . $_REQUEST["email"] . $extension;
+		$image_upload = Config::$userDirImage . $_REQUEST["email"] . $extension;
 		
 		if (move_uploaded_file($_FILES['foto_usuario']['tmp_name'], $image_upload)) {
 			$result = $this->users->insertUser($tipo); //Devuelve 1 si inserta user
