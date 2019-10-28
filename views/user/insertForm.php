@@ -23,6 +23,6 @@
 	<br>
 
 	<input type="hidden" name="controlador" value="userController">
-	<input type="hidden" name="do" value="validarInsertaUsuario"><br>
+	<input type="hidden" name="do" value="processInsertUser"><br>
 	<input type="submit" name="Enviar">
 </form>

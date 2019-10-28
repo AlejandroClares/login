@@ -1,16 +1,16 @@
 <?php
 include("models/seguridad.php");
 include("view.php");
-include("models/usuarios.php");
+include("models/users.php");
 
 
 class userController {
 	
 	
-	protected $usuarios;
+	protected $users;
 	
 	public function __construct(){
-        $this->usuarios = new Usuarios();
+        $this->users = new Users();
     }
 	
 	/**
@@ -20,35 +20,35 @@ class userController {
 		
 		if (isset($_REQUEST["do"])){
 			$do = $_REQUEST["do"];
-			if(Seguridad::getId() == null && $do != "validarFormularioLogin" && $do != "insertaUsuario" && $do != "validarInsertaUsuario"){
-				$do = "mostrarFormularioLogin";
+			if(Seguridad::getId() == null && $do != "processFormLogin" && $do != "insertUser" && $do != "processInsertUser"){
+				$do = "formLogin";
 			}
 		} else
-			$do = "mostrarFormularioLogin";
+			$do = "formLogin";
 		$this->$do(); //Ejecuta el metodo con el nombre que contiene la variable en ese momento
 	}
 	
 	/**
 	* Muestra el formulario de login
 	*/
-	private function mostrarFormularioLogin(){
+	private function formLogin(){
 		View::show("user/login");
 	}
 	
 	/**
 	* Procesa el formulario login
 	*/
-	private function validarFormularioLogin(){
+	private function processFormLogin(){
 		$username = $_REQUEST["usuario"];
 		$password = $_REQUEST["password"];
-		$validar = $this->usuarios->getValidaUsuario($username, $password);
+		$validar = $this->users->getProcessUser($username, $password);
 		if($validar){
 			if (Seguridad::getTipo() == "0")
 //				View::redireccion("usuarios");
-				View::redireccion("seleccionTabla", "userController");
+				View::redireccion("selectTable", "userController");
 			else
 //				View::redireccion("usuarios");
-				View::redireccion("seleccionTabla", "userController");
+				View::redireccion("selectTable", "userController");
 		} else {
 			$data["informacion"] = "Nombre de usuario o contraseña incorrecta.";
 			View::show("user/login", $data);
@@ -58,7 +58,7 @@ class userController {
 	/**
 	* Muestra la vista de seleccion de tablas
 	*/
-	private function seleccionTabla(){
+	private function selectTable(){
 		View::show("user/seleccionaTablas");
 	}
 
@@ -67,15 +67,15 @@ class userController {
 	/**
 	* Selecciona y muestra la vista del usuario según los permisos que tenga
 	*/
-	private function usuarios(){
+	private function user(){
 
 		$data["tipoUsuario"] = Seguridad::getTipo();
 
 		if(Seguridad::getTipo() == 0){
-			$data["datosUsuarios"] = $this->usuarios->getAll();
+			$data["datosUsuarios"] = $this->users->getAll();
 			View::show("user/userAdmin", $data);
 		} else if(Seguridad::getTipo() == 1){
-			$data["datosUsuarios"] = $this->usuarios->get(Seguridad::getId());
+			$data["datosUsuarios"] = $this->users->get(Seguridad::getId());
 			View::show("user/userAdmin", $data);
 		} 
 	}
@@ -83,8 +83,8 @@ class userController {
 	/**
 	* Elimina el usuario
 	*/
-	private function eliminaUsuario() {
-		$result = $this->usuarios->deleteUser($_REQUEST["idusuario"]);
+	private function deleteUser() {
+		$result = $this->users->deleteUser($_REQUEST["idusuario"]);
 		if(Seguridad::getTipo() == 1)
 			header('Location: index.php');
 		else
@@ -94,7 +94,7 @@ class userController {
 	/**
 	* Muestra la vista para insertar un usuario
 	*/
-	private function insertaUsuario(){
+	private function insertUser(){
 		$data['tipoUsuario'] = Seguridad::getTipo();
 		View::show("user/insertForm", $data);
 	}
@@ -102,7 +102,7 @@ class userController {
 	/**
 	* Procesa el formulario para insertar un usuario
 	*/
-	private function validarInsertaUsuario(){
+	private function processInsertUser(){
 		//Comprueba que la variable tipo exista, sino pondra 1 por defecto
 		if(isset($_REQUEST["tipo"]))
 			$tipo = $_REQUEST["tipo"];
@@ -120,7 +120,7 @@ class userController {
 		$image_upload = $dir_image . $_REQUEST["email"] . $extension;
 		
 		if (move_uploaded_file($_FILES['foto_usuario']['tmp_name'], $image_upload)) {
-			$result = $this->usuarios->insertUser($tipo); //Devuelve 1 si inserta user
+			$result = $this->users->insertUser($tipo); //Devuelve 1 si inserta user
 			echo "Resultado: " . $result;
 			if ($result) {
 				 if (Seguridad::getTipo() == "0"){
@@ -142,8 +142,8 @@ class userController {
 	/**
 	* Muestra la vista para modificar un usuario.
 	*/
-	private function modificaUsuario(){
-		$data['datosUsuario'] = $this->usuarios->get($_REQUEST["idusuario"]);
+	private function updateUser(){
+		$data['datosUsuario'] = $this->users->get($_REQUEST["idusuario"]);
 		$data['tipoUsuario'] = Seguridad::getTipo(); 
 		View::show("user/updateForm", $data);
 	}
@@ -151,8 +151,8 @@ class userController {
 	/**
 	* Procesa el formulario de modificar un usuario.
 	*/
-	private function validaModificaUsuario(){
-		$esInsertado = $this->usuarios->updateUser($_REQUEST["idusuario"]);
+	private function processUpdateUser(){
+		$esInsertado = $this->users->updateUser($_REQUEST["idusuario"]);
 		if($esInsertado)
 			View::redireccion("usuarios", "userController");
 		else
@@ -163,7 +163,7 @@ class userController {
 	/**
 	* Cierra las variables de sesion
 	*/
-	private function salirLogin(){
+	private function exitLogin(){
 		Seguridad::cerrarSesion();
 		header('Location: index.php');
 	}

@@ -1,7 +1,7 @@
 <?php
 include("abstraccion.php");
 include("config.php");
-	class Usuarios {
+	class Users {
 		
 		private $database;
 		
@@ -9,7 +9,7 @@ include("config.php");
 			$this->database = new Abstraccion(Config::$dbHost, Config::$dbUser, Config::$dbPass, Config::$dbName);
 		}
 		
-		public function getValidaUsuario($usuario, $password) {
+		public function getProcessUser($usuario, $password) {
 			$result = $this->database->sqlConsulta("SELECT * FROM usuarios WHERE nick = '$usuario' AND passwd = '$password'");
 			if (isset($result[0])) {
 				Seguridad::abrirSesion($result[0]->idusuario, $result[0]->tipo);

@@ -20,7 +20,7 @@
 	echo '
 		<input type="hidden" name="idusuario" value="'.$data["datosUsuario"][0]->idusuario.'">
 		<input type="hidden" name="controlador" value="userController">
-		<input type="hidden" name="do" value="validaModificaUsuario"><br>
+		<input type="hidden" name="do" value="processUpdateUser"><br>
 		<input type="submit" value="Añadir">
 	</form>
 	';
