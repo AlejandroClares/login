@@ -1,7 +1,7 @@
 <?php
 
 	echo '
-	<form action="index.php" method="POST">
+	<form enctype="multipart/form-data" action="index.php" method="POST">
 		Nombre<br>
 		<input type="text" name="nombre" value="'.$data["datosUsuario"][0]->nombre.'"><br>
 		Apellidos<br>
@@ -16,6 +16,13 @@
 	if($data['tipoUsuario'] == "0")		
 		echo 'Tipo<br>
 		<input type="number" name="tipo" value="'.$data["datosUsuario"][0]->tipo.'" max="1" min="0"><br>';
+
+	echo '
+		<input type="hidden" name="nombre_foto" value="'.$data["datosUsuario"][0]->nombre_foto.'"><br>
+		Insertar nueva foto<br>
+		<input name="foto_usuario" type="file" />
+		<br>
+	';
 
 	echo '
 		<input type="hidden" name="idusuario" value="'.$data["datosUsuario"][0]->idusuario.'">

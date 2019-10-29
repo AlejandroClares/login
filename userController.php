@@ -82,11 +82,17 @@ class userController {
 	* Elimina el usuario
 	*/
 	private function deleteUser() {
+		$data["datosUsuario"] = $this->users->get($_REQUEST["idusuario"]);
 		$result = $this->users->deleteUser($_REQUEST["idusuario"]);
-		if(Seguridad::getTipo() == 1)
-			header('Location: index.php');
-		else
-			View::redireccion("user", "userController");
+		if($result){
+			unlink(Config::$userDirImage.$data["datosUsuario"][0]->nombre_foto);
+			if(Seguridad::getTipo() == 1)
+				header('Location: index.php');
+			else
+				View::redireccion("user", "userController");
+		} else {
+			echo "Ocurrio un error al eliminar el usuario.";
+		}
 	}
 	
 	/**
@@ -120,6 +126,7 @@ class userController {
 						header('Location: index.php');
 					}
 				} else {
+					unlink($image_upload);
 					echo "Ocurrio un error al insertar el usuario.";
 				}
 			} else {
@@ -143,12 +150,27 @@ class userController {
 	* Procesa el formulario de modificar un usuario.
 	*/
 	private function processUpdateUser(){
-		$esInsertado = $this->users->updateUser($_REQUEST["idusuario"]);
-		if($esInsertado)
-			View::redireccion("user", "userController");
-		else
-			echo "Hubo un error.";
 
+		if($_FILES["foto_usuario"]["error"] == 0){
+			$randNumber = rand(0, 999999);
+			$imgName = $randNumber . $_FILES['foto_usuario']['name'];
+			$image_upload = Config::$userDirImage . $imgName;
+			if (move_uploaded_file($_FILES['foto_usuario']['tmp_name'], $image_upload)) {
+				$result = $this->users->updateUser($_REQUEST["idusuario"], $imgName); //Devuelve 1 si inserta user
+				if($result){
+					if($_REQUEST["nombre_foto"] != "")
+						unlink(Config::$userDirImage.$_REQUEST["nombre_foto"]);
+					View::redireccion("user", "userController");
+				} else {
+					unlink($image_upload);
+					echo "Ocurrio un error al insertar el usuario.";
+				}
+			} else {
+				echo "Ocurrio un error al guardar el archivo.";
+			}
+		} else {
+			echo "Ocurrio un error al cargar el archivo.";
+		}
 	}
 	
 	/**

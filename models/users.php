@@ -57,14 +57,15 @@ include("config.php");
             }
 		}
 		
-		public function updateUser($idusuario){
+		public function updateUser($idusuario, $imgName){
 			$result = $this->database->sqlOtros('UPDATE usuarios SET 
 			nombre="'.$_REQUEST["nombre"].'",
 			apellidos="'.$_REQUEST["apellidos"].'",
 			email="'.$_REQUEST["email"].'",
 			nick="'.$_REQUEST["nick"].'",
 			passwd="'.$_REQUEST["passwd"].'",
-			tipo="'.$_REQUEST["tipo"].'"
+			tipo="'.$_REQUEST["tipo"].'",
+			nombre_foto="'.$imgName.'"
 			WHERE idusuario="'.$idusuario.'"
 			;');
 
