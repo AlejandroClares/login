@@ -125,6 +125,8 @@ class userController {
 			} else {
 				echo "Ocurrio un error al guardar el archivo.";
 			}
+		} else {
+			echo "Ocurrio un error al cargar el archivo.";
 		}
 	}
 	
